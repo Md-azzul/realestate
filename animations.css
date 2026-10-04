@@ -1,0 +1,58 @@
+/* ---------- Animations (add-on; style.css is untouched) ---------- */
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+
+/* 1. Hero: one orchestrated entrance */
+.hero h1 { animation: heroIn 1.2s cubic-bezier(.2,.7,.2,1) both .2s; }
+.hero { animation: heroFade 1.6s ease both;  }
+@keyframes heroIn { from { opacity: 0; transform: translateY(60px); letter-spacing: 12px; } to { opacity: 1; transform: none; letter-spacing: normal; } }
+@keyframes heroFade { from { filter: brightness(.3); } to { filter: none; } }
+
+/* 2. Scroll reveal (classes added by script.js) */
+.reveal { opacity: 0; transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); will-change: opacity, transform; }
+.reveal.up    { transform: translateY(50px); }
+.reveal.left  { transform: translateX(-60px); }
+.reveal.right { transform: translateX(60px); }
+.reveal.zoom  { transform: scale(.92); }
+.reveal.visible { opacity: 1; transform: none; }
+.tile.reveal.visible:hover { transform: scale(1.03); }
+
+/* 3. Hover effects */
+.tile { transition: transform .5s ease, filter .5s ease; cursor: pointer; }
+.tile:hover { transform: scale(1.03); filter: brightness(1.15); position: relative; z-index: 2; }
+.service, .feature { transition: transform .4s ease; }
+.service:hover { transform: translateY(-10px); }
+.feature:hover { transform: translateX(10px); }
+.service img { transition: transform .5s ease; }
+.service:hover img { transform: scale(1.04); }
+
+/* 5. Arrow icons: gentle pulse + nudge on hover */
+.arrow { animation: pulse 2.4s ease-in-out infinite; transition: transform .3s ease; }
+.arrow:hover { animation: none; transform: translateX(10px) scale(1.1); }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+/* 6. Social icons: bounce on hover */
+.social i { transition: transform .3s ease, background-color .3s ease, color .3s ease; margin-left: 4px; }
+.social i:hover { transform: translateY(-6px) rotate(8deg); background-color: #fff; }
+
+/* 7. Form: focus glow + button hover */
+.contact-form input, .contact-form textarea { transition: border-color .3s ease, box-shadow .3s ease; color: #fff; }
+.contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #d4ea15; box-shadow: 0 0 0 3px rgba(212,234,21,.25); }
+.contact-form button { position: relative; overflow: hidden; border: none; font-weight: bold; transition: transform .25s ease, box-shadow .25s ease; }
+.contact-form button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(212,234,21,.35); }
+.contact-form button:active { transform: translateY(0); }
+.contact-form button .ripple { position: absolute; border-radius: 50%; background: rgba(0,0,0,.25); transform: scale(0); animation: ripple .6s linear; pointer-events: none; }
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+/* 8. Scroll progress bar + back-to-top */
+#progress { position: fixed; top: 0; left: 0; height: 4px; width: 0; background: #d4ea15; z-index: 999; }
+#toTop { position: fixed; right: 30px; bottom: 30px; width: 48px; height: 48px; border: none; border-radius: 50%;
+    background: #d4ea15; color: #000; font-size: 20px; cursor: pointer; z-index: 999;
+    opacity: 0; transform: translateY(20px); pointer-events: none; transition: opacity .3s ease, transform .3s ease; }
+#toTop.show { opacity: 1; transform: none; pointer-events: auto; }
+#toTop:hover { transform: translateY(-4px); }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+}
